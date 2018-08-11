@@ -84,19 +84,10 @@ export function getEventsByPopularity(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var result = "";
+    var result = "[";
     getUniqueEvents(req.id, (response) => {
-        if(response !== null){
-        response.forEach(element => {
-            result += "["
-            getEventsById(req.id, element.event_id, (event) => {
-                result += "{'name':'"+ event.name + "', 'description':'" +event.description + "', 'date':'" + event.date +"'},";
-            })
-
-            result.slice(0, -1);
-            result += "]"
-        });
+        console.log(response);
+        result += "]"
         req.status(200).json(result)
-        }
     });
 }
