@@ -44,7 +44,7 @@ app.get('/events/popularitys', getEventsByPopularity);
 
 app.post('/subscribeToEvent', postNewRelationshipRoute);
 app.get('/subscriptions', getEventsToUsersRoute);
-app.get('/subscriptions?subsciber', getEventsBySubscriberRoute);
+app.get('/subscriptions?subscription', getEventsBySubscriberRoute);
 
 app.all('*', error);
 
