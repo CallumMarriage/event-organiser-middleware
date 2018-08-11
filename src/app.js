@@ -5,7 +5,7 @@ import setup from './models/setup';
 import { global } from './middleware/global';
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
 import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
-import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute} from './routes/usersToEvents';
+import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity} from './routes/usersToEvents';
 
 import config  from './config';
 import { error } from './middleware/errors';
