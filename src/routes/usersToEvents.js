@@ -24,13 +24,14 @@ export function getEventsBySubscriberRoute(req, res){
                             getEventsById(req.id, element.event_id, (event) => {
                                 if(event !== null){
                                     if(event.rows.length > 0){
-                                        var temp = "{'title': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
+                                        var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
                                     array[i] = temp;
                                     i++;
                                     }
                                 }
                             });
                         });
+                        console.log(array);
                         res.status(200).json(array);
                     } else {
                         res.status(200).json({message: 'You have no events'});
