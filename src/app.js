@@ -35,8 +35,8 @@ app.get('/validateLogin/:username/:password', validatePasswordRoute);
 
 app.get('/events', getEventsRoute);
 app.get('/events/types', getEventsByTypeRoute);
-app.get('/events/name', getEventByEventNameRoute);
-app.get('/events/owner', getEventsByOwnerRoute);
+app.get('/events/names', getEventByEventNameRoute);
+app.get('/events/owners', getEventsByOwnerRoute);
 app.post('/event', postNewEvent);
 app.put('/event', updateEventRoute);
 app.delete('/event', deleteEventRoute);
