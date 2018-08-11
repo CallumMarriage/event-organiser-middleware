@@ -20,23 +20,17 @@ export function getEventsBySubscriberRoute(req, res){
                         var array = [];
                         var i;
                         for(i = 0; i < events.rows.length; i++){
-                            console.log(i);
                             getEventsById(req.id, events.rows[i].event_id, (event) => {
                                 if(event !== null){
                                     if(event.rows.length > 0){
-                                        var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
+                                        var temp = "{'event_id: '" + event.rows[0].event_id + "', 'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
                                         array.push(temp);
                                         console.log(array);
                                     }
                                 }
-                                console.log(events.rows.length -1);
-                                console.log(i);
                                 if(i === (events.rows.length)){
-
                                     console.log(array);
                                     res.status(200).json(array);
-                                } else {
-                                    console.log("stuff");
                                 }
                             });
                         }
