@@ -88,8 +88,7 @@ export function getEventsByPopularity(req, res){
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
             if(response.length > 0){
-                var obj = JSON.parse(response);
-                obj.forEach(element => {
+                response.forEach(element => {
                     console.log(element);
                 });
             }
