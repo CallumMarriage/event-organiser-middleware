@@ -80,6 +80,7 @@ export function postNewEvent(req, res){
 
     getEvents(req.id, (events) => {  
       if (events !== null) {
+        console.log(events.rows);
         res.status(200).json(events.rows);
       } else {
         res.status(404).json({ error: 'No events in the database'});
