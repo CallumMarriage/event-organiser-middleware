@@ -28,7 +28,7 @@ export function getEventsBySubscriberRoute(req, res){
                                     }
                                 }
                                 if(i === (events.rows.length)){
-                                    console.log(array);
+                                    console.log(JSON.parse(array));
                                     res.status(200).json(array);
                                 }
                             });
