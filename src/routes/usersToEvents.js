@@ -17,7 +17,21 @@ export function getEventsBySubscriberRoute(req, res){
             getEventsByUser(req.id, user_id, (events) => {
                 if(events !== null){
                     if(events.rows.length > 0){
-                        res.status(200).json(events.rows);
+                        var array = [response.rows.length];
+
+                        var i = 0;
+                        events.rows.forEach(element => {
+                        getEventsById(req.id, element.event_id, (event) => {
+                            if(event !== null){
+                                if(event.rows.length > 0){
+                                    var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
+                                   array[i] = temp;
+                                  i++;
+                                }
+                            }
+                        });
+                });
+                        res.status(200).json(array);
                     } else {
                         res.status(200).json({message: 'You have no events'});
                     }
