@@ -24,12 +24,12 @@ export function getEventsBySubscriberRoute(req, res){
                             getEventsById(req.id, events.rows[i].event_id, (event) => {
                                 if(event !== null){
                                     if(event.rows.length > 0){
-                                    var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
-                                    array.push(temp);
-                                    console.log(array);
+                                        var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
+                                        array.push(temp);
+                                        console.log(array);
+                                    }
                                 }
-                                }
-                                if(i == (event.rows.length -1)){
+                                if(i == (events.rows.length -1)){
                                     console.log(array);
                                     res.status(200).json(array);
                                 }
