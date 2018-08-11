@@ -90,10 +90,15 @@ export function getEventsByPopularity(req, res){
             console.log(response);
             if(response.rows.length > 0){
                 response.rows.forEach(element => {
-                    console.log(element)
+                    getEventsById(req.id, element.name, (event) => {
+                        var temp = event.slice(1, -1);
+                        temp += ",";
+                        result += temp;
+                    })
                 });
             }
         }
+        result.sclice(0, -1);
         result += "]"
         res.status(200).json(result)
     });
