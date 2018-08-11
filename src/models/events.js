@@ -101,7 +101,7 @@ export function createEventsTable(next) {
     });
   }
 
-  export function deleteEvent(requestId, eventName){
+  export function deleteEvent(requestId, eventName, callback){
     const pool = require('../utils/postgres.js');
     console.log(">> " + requestId + ", " + eventName);
     const query = escape('DELETE FROM events WHERE name = $1');
