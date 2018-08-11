@@ -89,11 +89,13 @@ export function getEventsByPopularity(req, res){
         if(response !== null){
             if(response.rows.length > 0){
                 response.rows.forEach(element => {
+                    console.log("user id: "+element.name);
                     getEventsById(req.id, element.name, (event) => {
                         if(event !== null){
-                            var temp = "{'name': '" + event.name + "', 'description': '"+ event.description + "', 'date': " + event.date +"'},";
-                            console.log(temp);
-                            result += temp;
+                            if(event.rows.length > 0){
+                                var temp = "{'name': '" + event.name + "', 'description': '"+ event.description + "', 'date': " + event.date +"'},";
+                                result += temp;
+                            }
                         }
                     })
                 });
