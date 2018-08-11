@@ -187,8 +187,8 @@ export function postNewEvent(req, res){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
 
-    const name = req.body.owner;
-    const username = req.body.username;
+    const owner = req.body.owner;
+    const username = req.body.name;
 
     if(name == null || username == null){
       res.status(400).json({error: 'Parameter is missing'});
