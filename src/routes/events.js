@@ -187,8 +187,13 @@ export function postNewEvent(req, res){
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
 
-    const name = req.body.name;
+    const name = req.body.owner;
     const username = req.body.username;
+
+    if(name == null || username == null){
+      res.status(400).json({error: 'Parameter is missing'});
+    }
+
     getUserByUsername(req.id, owner, (user) => {
       if(user !== null){
         if(user.rows.length === 1){
@@ -198,7 +203,7 @@ export function postNewEvent(req, res){
                   if(response === true){
                     res.status(200).json({message: 'Event has been deleted'});
                   } else {
-                    res.status(404).json({error: 'Couldnt find event to delete'})
+                    res.status(404).json({error: 'Could not find event to delete'})
                   }
               }
             });
