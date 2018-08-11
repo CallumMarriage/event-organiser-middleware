@@ -8,7 +8,7 @@ export function getEventsBySubscriberRoute(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var username = req.query.subscriptions;
+    var username = req.query.subscription;
     
     console.log(username);
     getUserByUsername(req.id, username, (user) => {
