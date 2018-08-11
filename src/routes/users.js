@@ -93,20 +93,22 @@ export function postNewUserRoute(req, res){
     var username = req.params.username
     getUserByUsername(req.id, username, (response) => {
       var user = response.rows[0];
-      if(user.password !== null){
-        bcrypt.compare(req.params.password, user.password, function(err, response) {
-          if(err) {
-              console.log(err);
+      if(user !== null){
+        if(user.password !== null){
+          bcrypt.compare(req.params.password, user.password, function(err, response) {
+            if(err) {
+                console.log(err);
+                res.status(404).json({error: 'Username or password is incorrect'})
+            } else if(response === true){
+                console.log(response);
+                res.status(200).json({message: true})
+            } else {
               res.status(404).json({error: 'Username or password is incorrect'})
-          } else if(response === true){
-              console.log(response);
-              res.status(200).json({message: true})
-          } else {
-            res.status(404).json({error: 'Username or password is incorrect'})
-          }
-        });
-      } else {
-        res.status(404).json({error: 'Username or password is incorrect'})
-      }
+            }
+          });
+        } else {
+          res.status(404).json({error: 'Username or password is incorrect'})
+        }
+      } 
     })
   }
