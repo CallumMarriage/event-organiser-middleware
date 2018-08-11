@@ -32,7 +32,6 @@ app.get('/users', getUsersRoute);
 app.get('/users/:username', getUserRoute);
 app.post('/user', postNewUserRoute);
 app.get('/validateLogin/:username/:password', validatePasswordRoute);
-
 app.get('/events', getEventsRoute);
 app.get('/events/dates', getEventsByDateRoute);
 app.get('/events/types', getEventsByTypeRoute);
