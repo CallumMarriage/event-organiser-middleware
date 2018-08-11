@@ -23,12 +23,12 @@ export function getEventsBySubscriberRoute(req, res){
                             getEventsById(req.id, events.rows[i].event_id, (event) => {
                                 if(event !== null){
                                     if(event.rows.length > 0){
-                                        array.push(JSON.parse("{\"event_id\": " + event.rows[0].event_id + ", \"name\": \"" + event.rows[0].name + "\", \"description\": \""+ event.rows[0].description + "\", \"date\": \"" + event.rows[0].date +"\"}"));
+                                        array.push({event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
                                         console.log(array);
                                     }
                                 }
                                 if(i === (events.rows.length)){
-                                    console.log(JSON.parse(array));
+                                    console.log(JSON.stringify(result));
                                     res.status(200).json(array);
                                 }
                             });
