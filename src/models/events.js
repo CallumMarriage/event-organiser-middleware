@@ -5,7 +5,7 @@ export function createEventsTable(next) {
   
     pool.query('CREATE SEQUENCE event_id_counter', [], (err, res) => {
   
-      var query = escape('CREATE TABLE events ( event_id INTEGER NOT NULL default nextval(\'event_id_counter\'), name TEXT, type TEXT, description TEXT, date TEXT, owner TEXT, PRIMARY KEY (event_id))');
+      var query = escape('CREATE TABLE events ( event_id INTEGER NOT NULL default nextval(\'event_id_counter\'), name TEXT, type TEXT, description TEXT, date TEXT, owner TEXT, venue TEXT, PRIMARY KEY (event_id))');
   
       pool.query(query, [], (err, res) => {
         if(err) {
@@ -37,7 +37,7 @@ export function createEventsTable(next) {
     const pool = require('../utils/postgres.js');
 
     console.log('>> Inserting event');
-    const query = escape('INSERT INTO events (name, type, description, date, owner) VALUES ($1, $2, $3, $4, $5 )');
+    const query = escape('INSERT INTO events (name, type, description, date, owner, venue) VALUES ($1, $2, $3, $4, $5,  )');
         pool.query(query, [name, type, description, date, owner], (err, res) => {
          if(err) {
              console.log(err);
@@ -64,7 +64,7 @@ export function createEventsTable(next) {
 
   export function getEventsByName(requestId, name, callback) {
     const pool = require('../utils/postgres.js');
-    console.log(">> " + requestId);
+    console.log(">> " + requestId) + ", " + name;
     const query = escape('SELECT * FROM events WHERE name=$1');
     pool.query(query, [name], (err, res) => {
       if(err) {
@@ -113,4 +113,19 @@ export function createEventsTable(next) {
       }
     });
     
+  }
+
+  export function getEventsByDate(requestId, date, callback){
+    const pool = require('../utils/postgres.js');
+
+    console.log(">> " + requestId + ", " + date);
+    const query = escape('SELECT * FROM events WHERE date = $1');
+
+    pool.query(query, [date], (err, res) => {
+      if(err) {
+        callback(false);
+      } else {
+        callback(res);
+      }
+    });
   }

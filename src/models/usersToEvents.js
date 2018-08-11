@@ -52,6 +52,7 @@ export function getEventsByUser(requestId, user_id, callback) {
   export function getUsersToEvents(requestId, callback) {
     const pool = require('../utils/postgres.js');
   
+    console.log(">> " + requestId);
     const query = escape('SELECT * FROM users_to_events');
     pool.query(query, [], (err, res) => {
       if(err) {

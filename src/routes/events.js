@@ -1,4 +1,4 @@
-import { getEvents, insertEvent, getEventsByUsername, getEventsByName, getEventsByType, getEventsByOwner, updateEvent, deleteEvent } from '../models/events.js';
+import { getEvents, insertEvent, getEventsByUsername, getEventsByName, getEventsByType, getEventsByOwner, updateEvent, deleteEvent, getEventsByDate} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 import { getUserByUsername} from '../models/users.js';
 
@@ -215,4 +215,25 @@ export function postNewEvent(req, res){
         }
       }
     });
+  }
+
+  export function getEventsByDateRoute(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    const date = req.query.date;
+
+    if(date == null){
+      res.status(400).json({error: 'missing paramater'});
+    }
+
+    getEventsByDate(req.id, date, (events) => {
+      if(events !== null){
+        if(events.rows.length > 0){
+          res.status(200).json(events.rows);
+        } else {
+          res.status(404).json({ error: 'Could not find your events'});
+        } 
+      }
+    })
   }

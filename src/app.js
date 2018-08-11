@@ -4,7 +4,7 @@ import { indexRoute } from './routes'
 import setup from './models/setup';
 import { global } from './middleware/global';
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
-import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute} from './routes/events';
+import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
 import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute} from './routes/usersToEvents';
 
 import config  from './config';
@@ -34,6 +34,8 @@ app.post('/user', postNewUserRoute);
 app.get('/validateLogin/:username/:password', validatePasswordRoute);
 
 app.get('/events', getEventsRoute);
+app.get('/events/dates', getEventsByDateRoute);
+app.get('/events/popularity', getEventsByPopularityRoute);
 app.get('/events/types', getEventsByTypeRoute);
 app.get('/events/names', getEventByEventNameRoute);
 app.get('/events/owners', getEventsByOwnerRoute);
