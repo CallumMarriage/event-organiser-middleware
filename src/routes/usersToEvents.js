@@ -88,6 +88,6 @@ export function getEventsByPopularity(req, res){
     getUniqueEvents(req.id, (response) => {
         console.log(response);
         result += "]"
-        req.status(200).json(result)
+        res.status(200).json(result)
     });
 }
