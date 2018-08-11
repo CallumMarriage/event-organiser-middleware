@@ -35,7 +35,6 @@ app.get('/validateLogin/:username/:password', validatePasswordRoute);
 
 app.get('/events', getEventsRoute);
 app.get('/events/dates', getEventsByDateRoute);
-app.get('/events/popularity', getEventsByPopularityRoute);
 app.get('/events/types', getEventsByTypeRoute);
 app.get('/events/names', getEventByEventNameRoute);
 app.get('/events/owners', getEventsByOwnerRoute);
