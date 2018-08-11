@@ -1,0 +1,54 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import { indexRoute } from './routes'
+import setup from './models/setup';
+import { global } from './middleware/global';
+import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
+import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute} from './routes/events';
+import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute} from './routes/usersToEvents';
+
+import config  from './config';
+import { error } from './middleware/errors';
+
+var cors = require('cors');
+
+var app = express();
+
+app.use(cors())
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+const port = process.env.PORT || config.app.port;
+
+app.all('*', global);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.all('/', indexRoute);
+
+app.get('/users', getUsersRoute);
+app.get('/users/:username', getUserRoute);
+app.post('/user', postNewUserRoute);
+app.get('/validateLogin/:username/:password', validatePasswordRoute);
+
+app.get('/events', getEventsRoute);
+app.get('/events/types', getEventsByTypeRoute);
+app.get('/events/name', getEventByEventNameRoute);
+app.get('/events/owner', getEventsByOwnerRoute);
+app.post('/event', postNewEvent);
+app.put('/event', updateEventRoute);
+app.delete('/event', deleteEventRoute);
+
+app.post('/subscribeToEvent', postNewRelationshipRoute);
+app.get('/subscriptions', getEventsToUsersRoute);
+app.get('/subscriptions/usernames?username', getEventsBySubscriberRoute);
+
+app.all('*', error);
+
+setup(() => {
+    app.listen(port, () => {
+      console.log('express: server has been started on port ' + port + '.');
+    });
+});

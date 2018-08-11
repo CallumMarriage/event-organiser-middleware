@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+
+  database:
+    image: 
+        postgres:alpine
+    ports:
+      - "5000:5432"
+    environment:
+      - PG_TRUST_LOCALNET=true
+      - PG_PASSWORD=devPassword
