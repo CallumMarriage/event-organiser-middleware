@@ -52,7 +52,8 @@ export function postNewUserRoute(req, res){
   var email = req.body.email;
   var fullName = req.body.fullName;
   var type = req.body.type;
-
+  console.log(">>" + req.id);
+  
 
   if(username == null || email == null || fullName == null || req.body.password == null || type == null){
       res.status(500).json({error: 'Missing Form item'});
