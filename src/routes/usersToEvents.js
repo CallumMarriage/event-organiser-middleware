@@ -17,7 +17,7 @@ export function getEventsBySubscriberRoute(req, res){
             getEventsByUser(req.id, user_id, (events) => {
                 if(events !== null){
                     if(events.rows.length > 0){
-                        var array = [response.rows.length];
+                        var array = [events.rows.length];
 
                         var i = 0;
                         events.rows.forEach(element => {
