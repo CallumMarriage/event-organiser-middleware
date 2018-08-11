@@ -188,9 +188,9 @@ export function postNewEvent(req, res){
 
 
     const owner = req.body.owner;
-    const username = req.body.name;
+    const name = req.body.name;
 
-    if(name == null || username == null){
+    if(owner == null || name == null){
       res.status(400).json({error: 'Parameter is missing'});
     }
 
@@ -198,7 +198,7 @@ export function postNewEvent(req, res){
       if(user !== null){
         if(user.rows.length === 1){
           if(user.rows[0].type === "Organiser"){
-            deleteEvent(req.id, name, username, (response) => {
+            deleteEvent(req.id, name, (response) => {
               if(response !== null){
                   if(response === true){
                     res.status(200).json({message: 'Event has been deleted'});
