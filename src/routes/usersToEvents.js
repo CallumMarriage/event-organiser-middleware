@@ -93,17 +93,17 @@ export function getEventsByPopularity(req, res){
                         if(event !== null){
                             if(event.rows.length > 0){
                                 var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'},";
-                                console.log(temp);
                                 result += temp;
+                                console.log(result);
+
                             }
                         }
                     })
                 });
+                result.slice(0, -1);
+                result += "]"
+                res.status(200).json(result)
             }
         }
-        result.slice(0, -1);
-        result += "]"
-        console.log(result);
-        res.status(200).json(result)
     });
 }
