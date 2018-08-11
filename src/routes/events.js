@@ -163,7 +163,7 @@ export function postNewEvent(req, res){
     const description = req.body.description;
     const date = req.body.date;
 
-    getEventByEventName(req.id, name, (event) => {
+    getEventsByName(req.id, name, (event) => {
       if(event !== null){
           if(event.rows.length === 1){
             updateEvent(req.id, name, type, description, date, (response) =>{
