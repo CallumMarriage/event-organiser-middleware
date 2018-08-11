@@ -84,24 +84,23 @@ export function getEventsByPopularity(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var result = "[";
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
             if(response.rows.length > 0){
+                var array = [response.rows.length];
+
+                var i = 0;
                 response.rows.forEach(element => {
                     getEventsById(req.id, element.event_id, (event) => {
                         if(event !== null){
                             if(event.rows.length > 0){
-                                var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'},";
-                                result += temp;
-                                console.log(result);
-
+                                var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
+                                array[i] = temp;
+                                i++;
                             }
                         }
                     })
                 });
-                result.slice(0, -1);
-                result += "]"
                 res.status(200).json(result)
             }
         }
