@@ -89,7 +89,7 @@ export function getEventsByPopularity(req, res){
         if(response !== null){
             if(response.length > 0){
                 response.array.forEach(element => {
-                    console.log(element);
+                    console.log(element.name);
                 });
             }
         }
