@@ -92,7 +92,7 @@ export function getEventsByPopularity(req, res){
                     getEventsById(req.id, element.event_id, (event) => {
                         if(event !== null){
                             if(event.rows.length > 0){
-                                var temp = "{'name': '" + event.name + "', 'description': '"+ event.description + "', 'date': " + event.date +"'},";
+                                var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'},";
                                 console.log(temp);
                                 result += temp;
                             }
