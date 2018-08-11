@@ -98,7 +98,7 @@ export function getEventsByPopularity(req, res){
                 });
             }
         }
-        result.sclice(0, -1);
+        result.slice(0, -1);
         result += "]"
         res.status(200).json(result)
     });
