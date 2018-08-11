@@ -137,7 +137,7 @@ export function postNewEvent(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    const owner = req.query.username;
+    const owner = req.query.owner;
 
     if(owner !== null){
       getEventsByOwner(req.id, owner, (result) =>{
