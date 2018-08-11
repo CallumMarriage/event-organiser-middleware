@@ -29,7 +29,7 @@ export function getEventsBySubscriberRoute(req, res){
                                         console.log(array);
                                     }
                                 }
-                                console.log(events.row.length -1);
+                                console.log(events.rows.length -1);
                                 if(i == (events.rows.length -1)){
                                     console.log(array);
                                     res.status(200).json(array);
