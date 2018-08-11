@@ -87,7 +87,7 @@ export function getEventsByPopularity(req, res){
     var result = "";
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
-        response.array.forEach(element => {
+        response.forEach(element => {
             result += "["
             getEventsById(req.id, element.event_id, (event) => {
                 result += "{'name':'"+ event.name + "', 'description':'" +event.description + "', 'date':'" + event.date +"'},";
