@@ -1,6 +1,7 @@
 import { getUserByUsername} from '../models/users.js';
 import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents } from '../models/usersToEvents.js';
 import { getEventByEventName, getEventsById} from '../models/events.js';
+import { validatePasswordRoute } from './users.js';
 const { sanitizeBody } = require('express-validator/filter');
 
 export function getEventsBySubscriberRoute(req, res){
@@ -52,30 +53,44 @@ export function postNewRelationshipRoute(req, res){
   var eventName = req.body.eventName;
 
 
-  if(username == null || eventName == null){
+  if(username == null || eventName == null || password == null){
       res.status(500).json({error: 'Missing Form item'});
       return;
   }
 
-  sanitizeBody(username).trim().escape()
+  sanitizeBody(username).trim().escape();
+  sanitizeBody(password).trim().escape();
   sanitizeBody(eventName).trim().escape();
 
   getUserByUsername(req.id, username, (user) => {
 
     if(user.rows.length ===1){
         var user_id = user.rows[0].user_id;
-        getEventByEventName(req.id, eventName, (event) =>{
-            if(event.rows.length === 1){
-                var event_id = event.rows[0].event_id;
-                insertUserToEvent(req.id, event_id, user_id, (response) => {
-                    if(response === true){
-                        res.status(201).json({message: 'User has subscribed to event'});  
-                     } else {
-                        res.status(404).json({error: 'Invalid subscription attempt'});
-                      }
+        var user = response.rows[0];
+        if(user.password !== null){
+          bcrypt.compare(password, user.password, function(err, response) {
+            if(err) {
+                console.log(err);
+                res.status(404).json({error: 'Username or password is incorrect'})
+            } else if(response === true){
+                getEventByEventName(req.id, eventName, (event) =>{
+                    if(event.rows.length === 1){
+                        var event_id = event.rows[0].event_id;
+                        insertUserToEvent(req.id, event_id, user_id, (response) => {
+                            if(response === true){
+                                res.status(201).json({message: 'User has subscribed to event'});  
+                             } else {
+                                res.status(404).json({error: 'Invalid subscription attempt'});
+                              }
+                        });
+                    }
                 });
+
+            } else {
+              res.status(404).json({error: 'Username or password is incorrect'})
             }
-        });
+          });
+        }
     }
   });
 }

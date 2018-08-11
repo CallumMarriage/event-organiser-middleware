@@ -93,7 +93,6 @@ export function postNewUserRoute(req, res){
     var username = req.params.username
     getUserByUsername(req.id, username, (response) => {
       var user = response.rows[0];
-      console.log(user);
       if(user.password !== null){
         bcrypt.compare(req.params.password, user.password, function(err, response) {
           if(err) {
