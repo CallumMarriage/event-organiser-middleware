@@ -129,3 +129,16 @@ export function createEventsTable(next) {
       }
     });
   }
+
+  export function getEventsById(requestId, event_id, callback) {
+    const pool = require('../utils/postgres.js');
+    console.log(">> " + requestId) + ", " + name;
+    const query = escape('SELECT * FROM events WHERE event_id=$1');
+    pool.query(query, [event_id], (err, res) => {
+      if(err) {
+        callback(null);
+      } else {
+        callback(res);
+      }
+    });
+  }

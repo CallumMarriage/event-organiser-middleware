@@ -1,6 +1,6 @@
 import { getUserByUsername} from '../models/users.js';
-import { getEventsByUser, getUsersToEvents, insertUserToEvent } from '../models/usersToEvents.js';
-import { getEventByEventName } from '../models/events.js';
+import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents } from '../models/usersToEvents.js';
+import { getEventByEventName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
 export function getEventsBySubscriberRoute(req, res){
@@ -78,4 +78,23 @@ export function postNewRelationshipRoute(req, res){
         });
     }
   });
+}
+
+export function getEventsByPopularity(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    var result = "";
+    getUniqueEvents(req.id, (response => {
+        response.array.forEach(element => {
+            result += "["
+            getEventsById(req.id, element.event_id, (event) => {
+                result += "{'name':'"+ event.name + "', 'description':'" +event.description + "', 'date':'" + event.date +"'},";
+            })
+
+            result.slice(0, -1);
+            result += "]"
+        });
+        req.status(200).json(result)
+    }))
 }

@@ -40,6 +40,7 @@ app.get('/events/owners', getEventsByOwnerRoute);
 app.post('/event', postNewEvent);
 app.put('/event', updateEventRoute);
 app.delete('/event', deleteEventRoute);
+app.get('/events/popularitys', getEventsByPopularity);
 
 app.post('/subscribeToEvent', postNewRelationshipRoute);
 app.get('/subscriptions', getEventsToUsersRoute);

@@ -62,3 +62,18 @@ export function getEventsByUser(requestId, user_id, callback) {
       }
     });
   }
+
+  export function getUniqueEvents(requestId, callback){
+    const pool = require('../utils/postgres.js');
+
+    console.log(">> " + requestId);
+    const query = escape('SELECT DISTINCT event_id FROM users_to_events');
+
+    pool.query(query, [], (err, res) => {
+      if(err) {
+        callback(null);
+      }else {
+        callback(res);
+      }
+    });
+  }

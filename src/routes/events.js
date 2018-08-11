@@ -230,7 +230,7 @@ export function postNewEvent(req, res){
     getEventsByDate(req.id, date, (events) => {
       if(events !== null){
         if(events.rows.length > 0){
-          res.status(200).json(events.rows);
+          res.status(200).json(result.rows);
         } else {
           res.status(404).json({ error: 'Could not find your events'});
         } 
