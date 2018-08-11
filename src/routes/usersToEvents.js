@@ -88,11 +88,10 @@ export function getEventsByPopularity(req, res){
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
             if(response.rows.length > 0){
-                console.log(response.rows[0]);
                 response.rows.forEach(element => {
-                    console.log("user id: "+element.event_id);
                     getEventsById(req.id, element.event_id, (event) => {
                         if(event !== null){
+                            console.log(event);
                             if(event.rows.length > 0){
                                 var temp = "{'name': '" + event.name + "', 'description': '"+ event.description + "', 'date': " + event.date +"'},";
                                 result += temp;
