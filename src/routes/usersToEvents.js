@@ -100,7 +100,6 @@ export function getEventsByPopularity(req, res){
         }
         result.slice(0, -1);
         result += "]"
-        console.log(result);
         res.status(200).json(result)
     });
 }
