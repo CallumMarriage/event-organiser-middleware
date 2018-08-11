@@ -91,9 +91,9 @@ export function getEventsByPopularity(req, res){
                 response.rows.forEach(element => {
                     getEventsById(req.id, element.event_id, (event) => {
                         if(event !== null){
-                            console.log(event);
                             if(event.rows.length > 0){
                                 var temp = "{'name': '" + event.name + "', 'description': '"+ event.description + "', 'date': " + event.date +"'},";
+                                console.log(temp);
                                 result += temp;
                             }
                         }
