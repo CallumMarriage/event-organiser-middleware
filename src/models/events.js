@@ -19,9 +19,9 @@ export function createEventsTable(next) {
   }
 
   export function setUpEvents(next){
-    this.createEventsTable(() => {
-      this.nsertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
-        this.insertEvent( 'Event2', 'Culture', 'Another event', '2018/09/03', 'Admin', () =>{
+    createEventsTable(() => {
+      insertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
+        insertEvent( 'Event2', 'Culture', 'Another event', '2018/09/03', 'Admin', () =>{
           next();
         });
       });
