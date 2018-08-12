@@ -71,7 +71,8 @@ app.post('/subscribeToEvent', postNewRelationshipRoute);
 app.get('/subscriptions', getEventsToUsersRoute);
 //get events user is subscribed to
 app.get('/events/subscriptions', getEventsBySubscriberRoute);
-app.get('/events/:eventName/subsriptions');
+//get subscripstions for an event
+app.get('/events/:eventName/subsriptions', getSubscribersByEvent);
 
 app.all('*', error);
 
