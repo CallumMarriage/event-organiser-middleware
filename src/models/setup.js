@@ -1,12 +1,16 @@
 import config from '../config.js';
-import { createUsersTable, insertUser } from './users.js';
-import { createUsersToEventsTable, insertUserToEvent} from './usersToEvents';
 
 export default function setup(next) {
   console.log(">> Set up started");
   if (config.app.env === 'local' || config.app.env === 'development') {
     dropTables(() => {
-      next();
+      setUpUsers(() => {
+        setUpEvents(() => {
+          setupUsersToEvents(() => {
+            next();
+          });
+        });
+      });
     });
   } else {
     next();

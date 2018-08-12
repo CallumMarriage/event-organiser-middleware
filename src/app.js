@@ -81,13 +81,7 @@ app.get('/events/subscriptions', getEventsBySubscriberRoute);
 app.all('*', error);
 
 setup(() => {
-  setUpUsers(() => {
-    setUpEvents(() => {
-      setupUsersToEvents(() => {
-        app.listen(port, () => {
-          console.log('express: server has been started on port ' + port + '.');
-        });
-      });
-    });
+  app.listen(port, () => {
+   console.log('express: server has been started on port ' + port + '.');
   });
 });
