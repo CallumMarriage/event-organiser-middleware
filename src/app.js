@@ -84,10 +84,8 @@ setup(() => {
   setUpUsers(() => {
     setUpEvents(() => {
       setupUsersToEvents(() => {
-        setUpUsers(() => {
-          app.listen(port, () => {
-            console.log('express: server has been started on port ' + port + '.');
-          });
+        app.listen(port, () => {
+          console.log('express: server has been started on port ' + port + '.');
         });
       });
     });
