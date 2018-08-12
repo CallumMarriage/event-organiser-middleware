@@ -12,7 +12,7 @@ export default function setup(next) {
         console.log(">> Inserting Root");
         insertUser('Admin', 'Admin@gmail.com', 'Admin', 'admin', 'Organiser', () => {
           createEventsTable(() => {
-            insertEvent('Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
+            insertEvent('', 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
               createUsersToEventsTable(() => {
                 insertUserToEvent(1, 1, () => {
                   next();
