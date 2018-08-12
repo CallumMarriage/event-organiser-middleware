@@ -3,6 +3,7 @@ import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents }
 import { getEventByEventName, getEventsById} from '../models/events.js';
 import { validatePasswordRoute } from './users.js';
 const { sanitizeBody } = require('express-validator/filter');
+const bcrypt = require('bcrypt');
 
 export function getEventsBySubscriberRoute(req, res){
     res.header("Access-Control-Allow-Origin", "*");
