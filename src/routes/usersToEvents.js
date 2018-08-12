@@ -109,7 +109,6 @@ export function postNewRelationshipRoute(req, res){
   }
 
   sanitizeBody(username).trim().escape();
-  sanitizeBody(password).trim().escape();
   sanitizeBody(eventName).trim().escape();
 
   getUserByUsername(req.id, username, (user) => {
