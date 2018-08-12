@@ -144,8 +144,14 @@ export function getEventsByPopularity(req, res){
                                 }
                 
                             });
+                        } else {
+                            if(i === (response.rows.length)){    
+                                console.log(array);
+                                res.status(200).json(array);
+                            }
                         }
                     });
+                    
                 }   
             } else {
                 res.status(404).json({error: 'Couldnt find any events with that many subscribers'});
