@@ -1,4 +1,4 @@
-import { getUserByUsername, getUserById} from '../models/users.js';
+import { getUserByUsername, getUserByUserId} from '../models/users.js';
 import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
@@ -18,7 +18,7 @@ export function getSubscribersByEventRoute(req, res) {
                     var array = [];
                     var i;
                     for(i = 0; i < subscribers.rows.length; i++){
-                        getUserById(req.id, subscribers.rows[i].user_id, (subscriber) => {
+                        getUserByUserId(req.id, subscribers.rows[i].user_id, (subscriber) => {
                             if(subscriber !== null){
                                 if(subscriber.rows.length > 0){
                                     array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});

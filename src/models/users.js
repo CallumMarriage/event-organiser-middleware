@@ -81,3 +81,22 @@ export function getUsers(requestId, callback) {
     }
   });
 }
+
+//uses escape to prevent sql injection.
+
+export function getUserByUserId(requestId, username, callback) {
+  const pool = require('../utils/postgres.js');
+  
+  const query = escape('SELECT * FROM users WHERE user_id=$1');
+  pool.query(query, [username], (err, res) => {
+    if(err) {
+      callback(null);
+    } else {
+      if (res) {
+        callback(res);
+      } else {
+        callback(null);
+      }
+    }
+  });
+}
