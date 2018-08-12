@@ -72,7 +72,7 @@ app.get('/subscriptions', getEventsToUsersRoute);
 //get events user is subscribed to
 app.get('/events/subscriptions', getEventsBySubscriberRoute);
 //get subscripstions for an event
-app.get('/events/:name/subscriptions', getSubscribersByEvent);
+app.get('/events/:eventName/subscriptions', getSubscribersByEvent);
 
 app.all('*', error);
 
