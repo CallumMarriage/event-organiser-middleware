@@ -1,10 +1,10 @@
 import config from '../config.js';
 //set up users
-import { setUpUsers } from './models/users';
+import { setUpUsers } from './users';
 //set up events
-import { setUpEvents } from './models/events';
+import { setUpEvents } from './events';
 //set up relationship between users and events
-import { setupUsersToEvents } from './models/usersToEvents';
+import { setupUsersToEvents } from './usersToEvents';
 
 export default function setup(next) {
   console.log(">> Set up started");
