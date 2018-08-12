@@ -49,6 +49,7 @@ export function getEventsBySubscriberRoute(req, res){
     
     console.log(username);
     getUserByUsername(req.id, username, (user) => {
+        console.log(">> "+user)
         if(user.rows.length ===1){
             var user_id = user.rows[0].user_id;
             getEventsByUser(req.id, user_id, (events) => {
@@ -61,13 +62,15 @@ export function getEventsBySubscriberRoute(req, res){
                                 if(event !== null){
                                     if(event.rows.length > 0){
                                         array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
-                                        console.log(array);
                                     }
                                 }
                                 if(i === (events.rows.length)){
                                     res.status(200).json(array);
                                 }
                             });
+                            if(i === (events.rows.length)){
+                                res.status(200).json(array);
+                            }
                         }
                     } else {
                         res.status(200).json({message: 'You have no events'});
