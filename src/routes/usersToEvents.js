@@ -65,6 +65,8 @@ export function postNewRelationshipRoute(req, res){
 
   var username = req.body.username;
   var eventName = req.body.eventName;
+  var password = req.body.password;
+
 
 
   if(username == null || eventName == null || password == null){

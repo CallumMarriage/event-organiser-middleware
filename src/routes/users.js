@@ -43,6 +43,12 @@ export function getUsersRoute(req, res) {
   });
 }
 
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+
 export function postNewUserRoute(req, res){
   
   res.header("Access-Control-Allow-Origin", "*");
@@ -52,6 +58,8 @@ export function postNewUserRoute(req, res){
   var email = req.body.email;
   var fullName = req.body.fullName;
   var type = req.body.type;
+
+
   console.log(">>" + req.id);
   
 
@@ -59,6 +67,14 @@ export function postNewUserRoute(req, res){
       res.status(500).json({error: 'Missing Form item'});
       return;
   }
+  if(!validateEmail(email)){
+    res.status(500).json({error: "Email is invalid"});
+  }
+
+  if(req.body.password.length < 5 ){
+    res.status(500).json({error: 'Password is too short'});
+  }
+
   sanitizeBody(username).trim().escape()
   sanitizeBody(email)
   sanitizeBody(fullName)
