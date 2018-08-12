@@ -145,10 +145,6 @@ export function getEventsByPopularity(req, res){
                                 res.status(200).json(array);
                             }
                         }
-                        if(i === (response.rows.length)){    
-                            console.log(array);
-                            res.status(200).json(array);
-                        }
                     });
                 }   
             } else {
