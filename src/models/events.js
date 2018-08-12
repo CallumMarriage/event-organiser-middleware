@@ -18,6 +18,20 @@ export function createEventsTable(next) {
     });
   }
 
+  export default function setUpEvents(next){
+    createEventsTable(() => {
+      insertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
+        insertEvent( 'Event2', 'Culture', 'Another event', '2018/09/03', 'Admin', () =>{
+          createUsersToEventsTable(() => {
+            insertUserToEvent('', 2, 1, () => {
+              next();
+            })
+          });
+        });
+      });
+    });
+  }
+
   export function getEventsByType(requestId, type, callback){
     const pool = require('../utils/postgres.js');
     console.log(">> " + requestId);
