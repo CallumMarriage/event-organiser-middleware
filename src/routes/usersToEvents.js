@@ -2,7 +2,41 @@ import { getUserByUsername} from '../models/users.js';
 import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
-const bcrypt = require('bcrypt');
+
+export function getSubscribersByEvent(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    var eventName = req.query.event;
+
+    console.log(eventName);
+    getEventsById(req.id, eventName, (event) => {
+        if(event !== null){
+            if(event.row.length == 1){
+                getSubscribersByEvent(req.id, event.row[0].event_id, (subscribers) => {
+                    var array = [];
+                        var i;
+                        for(i = 0; i < subscribers.rows.length; i++){
+                            getUserById(req.id, subscribers.rows[i].user_id, (subscriber) => {
+                                if(subscriber !== null){
+                                    if(subscriber.rows.length > 0){
+                                        array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});
+                                        console.log(array);
+                                    }
+                                }
+                                if(i === (subscribers.rows.length)){
+                                    res.status(200).json(array);
+                                }
+                            });
+                        }
+                });
+            } else {
+                res.status(404).json({error: 'could not find event with that name'});
+            }
+        }
+    });
+}
+
 
 export function getEventsBySubscriberRoute(req, res){
     res.header("Access-Control-Allow-Origin", "*");
