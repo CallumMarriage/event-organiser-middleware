@@ -121,10 +121,13 @@ export function getEventsByPopularity(req, res){
                 var i;  
                 console.log(">> 1");
                 for(i = 0; i < response.rows.length; i++){  
+                    console.log(i);
                     getNumberOfSubscribers(req.id, response.rows[i].event_id, (subscribers) => {
                         console.log(">> 2");
+                        console.log(i);
                         console.log(">> Number of subsribers : " + subscribers.rows[0].count);
                         if(subscribers.rows[0].count === number){
+                            console.log(i)
                             getEventsById(req.id, response.rows[i-1].event_id, (event) => {
                                 console.log(">> 3");
 
@@ -137,7 +140,7 @@ export function getEventsByPopularity(req, res){
                 
                             });
                         }
-                        if(i === (response.rows.length)){    
+                        if(i === (response.rows.length +1)){    
                             res.status(200).json(array);
                             }
                     });
