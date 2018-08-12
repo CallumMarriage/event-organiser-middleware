@@ -134,11 +134,12 @@ export function getEventsByPopularity(req, res){
                                         console.log(array);
                                     }
                                 }
-                                if(i === (response.rows.length)){    
-                                res.status(200).json(array);
-                                }
+                
                             });
                         }
+                        if(i === (response.rows.length)){    
+                            res.status(200).json(array);
+                            }
                     });
                 }   
             } else {
