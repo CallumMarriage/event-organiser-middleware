@@ -9,4 +9,4 @@ services:
       - "5000:5432"
     environment:
       - PG_TRUST_LOCALNET=true
-      - PG_PASSWORD=devPassword
+      - PG_PASSWORD=password

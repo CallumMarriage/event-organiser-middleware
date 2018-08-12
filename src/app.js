@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { indexRoute } from './routes'
 import setup from './models/setup';
-import { global } from './middleware/global';
+import { globalMessage } from './middleware/global';
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
 import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
 import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity} from './routes/usersToEvents';
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 
 const port = process.env.PORT || config.app.port;
 
-app.all('*', global);
+app.all('*', globalMessage);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

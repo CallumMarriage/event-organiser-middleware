@@ -84,7 +84,7 @@ export function postNewRelationshipRoute(req, res){
         if(user.rows.length === 1){
             var user_id = user.rows[0].user_id;
             console.log("user: " + user);
-            
+
             getEventsByName(req.id, eventName, (event) =>{
                 if(event.rows.length === 1){
                     var event_id = event.rows[0].event_id;
@@ -113,21 +113,21 @@ export function getEventsByPopularity(req, res){
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
             if(response.rows.length > 0){
-                var array = [response.rows.length];
-
-                var i = 0;
-                response.rows.forEach(element => {
-                    getEventsById(req.id, element.event_id, (event) => {
-                        if(event !== null){
-                            if(event.rows.length > 0){
-                                var temp = "{'name': '" + event.rows[0].name + "', 'description': '"+ event.rows[0].description + "', 'date': " + event.rows[0].date +"'}";
-                                array[i] = temp;
-                                i++;
-                            }
+             var array = [];
+             var i;  
+             for(i = 0; i < events.rows.length; i++){  
+               getEventsById(req.id, events.rows[i].event_id, (event) => {
+                   if(event !== null){
+                       if(event.rows.length > 0){
+                           array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
+                          console.log(array);
                         }
-                    })
+                   }
+                  if(i === (events.rows.length)){    
+                     res.status(200).json(array);
+                  }
                 });
-                res.status(200).json(array)
+              }
             }
         }
     });
