@@ -1,4 +1,4 @@
-import { getUserByUsername} from '../models/users.js';
+import { getUserByUsername, getUserById} from '../models/users.js';
 import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
