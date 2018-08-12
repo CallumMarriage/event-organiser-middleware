@@ -86,7 +86,7 @@ export function getUsers(requestId, callback) {
 
 export function getUserByUserId(requestId, user_id, callback) {
   const pool = require('../utils/postgres.js');
-  log.console(">> " + requestId + ", " + user_id);
+  console.log(">> " + requestId + ", " + user_id);
   const query = escape('SELECT * FROM users WHERE user_id=$1');
   pool.query(query, [user_id], (err, res) => {
     if(err) {
