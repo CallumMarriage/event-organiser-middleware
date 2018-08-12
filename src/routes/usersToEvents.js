@@ -115,6 +115,7 @@ export function getEventsByPopularity(req, res){
             if(response.rows.length > 0){
              var array = [];
              var i;  
+             console.log(response);
              for(i = 0; i < response.rows.length; i++){  
                getEventsById(req.id, response.rows[i].event_id, (event) => {
                    if(event !== null){
@@ -123,7 +124,7 @@ export function getEventsByPopularity(req, res){
                           console.log(array);
                         }
                    }
-                  if(i === (events.rows.length)){    
+                  if(i === (response.rows.length)){    
                      res.status(200).json(array);
                   }
                 });
