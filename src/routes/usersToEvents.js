@@ -1,6 +1,6 @@
 import { getUserByUsername} from '../models/users.js';
 import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents } from '../models/usersToEvents.js';
-import { getEventByEventName, getEventsById} from '../models/events.js';
+import { getEventsByName, getEventsById} from '../models/events.js';
 import { validatePasswordRoute } from './users.js';
 const { sanitizeBody } = require('express-validator/filter');
 const bcrypt = require('bcrypt');
@@ -77,7 +77,7 @@ export function postNewRelationshipRoute(req, res){
   sanitizeBody(password).trim().escape();
   sanitizeBody(eventName).trim().escape();
   
-  getEventByEventName(req.id, eventName, (event) =>{
+  getEventsByName(req.id, eventName, (event) =>{
     if(event.rows.length === 1){
         var event_id = event.rows[0].event_id;
         insertUserToEvent(req.id, event_id, user_id, (response) => {
