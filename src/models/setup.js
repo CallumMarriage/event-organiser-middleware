@@ -1,6 +1,5 @@
 import config from '../config.js';
 import { createUsersTable, insertUser } from './users.js';
-import { createEventsTable, insertEvent } from './events.js';
 import { createUsersToEventsTable, insertUserToEvent} from './usersToEvents';
 
 export default function setup(next) {

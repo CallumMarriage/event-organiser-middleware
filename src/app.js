@@ -1,16 +1,23 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { indexRoute } from './routes'
+
+//models setup (create tables and insert data)
 import setup from './models/setup';
 import {setUpEvents} from './models/events';
+import { setupUsersToEvents } from './models/usersToEvents';
 
+//middleware
+import { error } from './middleware/errors';
 import { globalMessage } from './middleware/global';
+
+//routes
+import { indexRoute } from './routes'
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
 import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
 import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity} from './routes/usersToEvents';
 
+//config
 import config  from './config';
-import { error } from './middleware/errors';
 
 var cors = require('cors');
 
@@ -70,8 +77,10 @@ app.all('*', error);
 
 setup(() => {
   setUpEvents(() => {
-    app.listen(port, () => {
-      console.log('express: server has been started on port ' + port + '.');
+    setupUsersToEvents(() => {
+      app.listen(port, () => {
+        console.log('express: server has been started on port ' + port + '.');
+      });
     });
   });
 });

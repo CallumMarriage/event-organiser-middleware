@@ -49,6 +49,14 @@ export function getEventsByUser(requestId, user_id, callback) {
     });
   }
   
+  export function setupUsersToEvents(next){
+    this.createUsersToEventsTable(() => {
+      this.insertUserToEvent('', 2, 1, () => {
+        next();
+      })
+    });
+  }
+
   export function getUsersToEvents(requestId, callback) {
     const pool = require('../utils/postgres.js');
   
