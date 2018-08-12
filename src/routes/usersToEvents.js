@@ -137,9 +137,11 @@ export function getEventsByPopularity(req, res){
                             });
                         }
                     });
-                }
-            }   
+                }   
+            } else {
+                res.status(404).json({error: 'Couldnt find any events with that many subscribers'});
+
+            }
         }
     });
-    res.status(404).json({error: 'Couldnt find any events with that many subscribers'});
 }
