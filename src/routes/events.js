@@ -163,22 +163,27 @@ export function postNewEvent(req, res){
     const type = req.body.type;
     const description = req.body.description;
     const date = req.body.date;
-
+    const owner = req.body.owner;
+  
     getEventsByName(req.id, name, (event) => {
       if(event !== null){
           if(event.rows.length === 1){
-            updateEvent(req.id, name, type, description, date, (response) =>{
-              if(response != null){
-                if(response === true){
-                  res.status(201).json({message: 'Event updated succesfully'});  
-               } else {
-                  res.status(404).json({error: 'Invalid update attempt'});
+            if(event.rows[0].owner === owner){
+              updateEvent(req.id, name, type, description, date, (response) =>{
+                if(response != null){
+                  if(response === true){
+                    res.status(201).json({message: 'Event updated succesfully'});  
+                } else {
+                    res.status(404).json({error: 'Invalid update attempt'});
+                  }
                 }
-              }
-            });
+              });
           } else {
-            res.status(404).json({error: 'Event does not exist'});
+            res.status(400).json({Error: 'You do not own this event'})
           }
+        } else {
+          res.status(404).json({error: 'Event does not exist'});
+        }
       }
     })
   }
@@ -187,18 +192,17 @@ export function postNewEvent(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-
     const owner = req.body.owner;
     const name = req.body.name;
 
     if(owner == null || name == null){
       res.status(400).json({error: 'Parameter is missing'});
     }
-
-    getUserByUsername(req.id, owner, (user) => {
-      if(user !== null){
-        if(user.rows.length === 1){
-          if(user.rows[0].type === "Organiser"){
+    
+    getEventsByName(req.id, name, (event) => {
+      if(event !== null){
+        if(event.rows.length === 1){
+          if(event.rows[0].owner === owner){
             deleteEvent(req.id, name, (response) => {
               if(response !== null){
                   if(response === true){
@@ -208,11 +212,11 @@ export function postNewEvent(req, res){
                   }
               }
             });
+          }else {
+            res.status(400).json({error: 'You do not have permission to delete this'});
+          }
         } else {
-          res.status(400).json({error: 'You do not have the right permissions to access this.'});
-        }
-        }else {
-          res.status(404).json({error: 'User does not exist'});
+          res.status(404).json({error: 'Event does not exist'});
         }
       }
     });
