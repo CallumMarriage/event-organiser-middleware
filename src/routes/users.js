@@ -118,7 +118,7 @@ export function postNewUserRoute(req, res){
                   res.status(404).json({error: 'Username or password is incorrect'})
               } else if(response === true){
                   console.log(response);
-                  res.status(200).json({message: true})
+                  res.status(200).json({message: true, username: user.username, type: user.type })
               } else {
                 res.status(404).json({error: 'Username or password is incorrect'})
               }
