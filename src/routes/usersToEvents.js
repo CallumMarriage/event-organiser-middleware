@@ -10,9 +10,10 @@ export function getSubscribersByEvent(req, res) {
     var eventName = req.params.eventName;
 
     console.log(eventName);
-    getEventsById(req.id, eventName, (event) => {
+    getEventsByName(req.id, eventName, (event) => {
         if(event !== null){
             if(event.row.length == 1){
+                console.log(event.row[0]);
                 getSubscribersByEvent(req.id, event.row[0].event_id, (subscribers) => {
                     var array = [];
                         var i;
