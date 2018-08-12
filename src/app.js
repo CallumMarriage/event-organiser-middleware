@@ -4,12 +4,6 @@ import bodyParser from 'body-parser';
 //models setup (create tables and insert data)
 //drop tables
 import setup from './models/setup';
-//set up users
-import { setUpUsers } from './models/users';
-//set up events
-import { setUpEvents } from './models/events';
-//set up relationship between users and events
-import { setupUsersToEvents } from './models/usersToEvents';
 
 //middleware
 import { error } from './middleware/errors';
