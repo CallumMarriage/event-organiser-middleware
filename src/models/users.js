@@ -84,11 +84,11 @@ export function getUsers(requestId, callback) {
 
 //uses escape to prevent sql injection.
 
-export function getUserByUserId(requestId, username, callback) {
+export function getUserByUserId(requestId, user_id, callback) {
   const pool = require('../utils/postgres.js');
-  
+  log.console(">> " + requestId + ", " + user_id);
   const query = escape('SELECT * FROM users WHERE user_id=$1');
-  pool.query(query, [username], (err, res) => {
+  pool.query(query, [user_id], (err, res) => {
     if(err) {
       callback(null);
     } else {
