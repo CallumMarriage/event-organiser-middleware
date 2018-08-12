@@ -67,8 +67,6 @@ export function postNewRelationshipRoute(req, res){
   var eventName = req.body.eventName;
   var password = req.body.password;
 
-
-
   if(username == null || eventName == null || password == null){
       res.status(500).json({error: 'Missing Form item'});
       return;
@@ -82,7 +80,7 @@ export function postNewRelationshipRoute(req, res){
 
     if(user.rows.length ===1){
         var user_id = user.rows[0].user_id;
-        var user = response.rows[0];
+        var user = user.rows[0];
         if(user.password !== null){
           bcrypt.compare(password, user.password, function(err, response) {
             if(err) {
