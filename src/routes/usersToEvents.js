@@ -135,6 +135,7 @@ export function getEventsByPopularity(req, res){
                                     if(event.rows.length > 0){
                                         array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
                                         console.log(array);
+                                        console.log(">>" + i);
                                     }
                                 }
                 
@@ -143,7 +144,7 @@ export function getEventsByPopularity(req, res){
                         if(i === (response.rows.length)){    
                             console.log(array);
                             res.status(200).json(array);
-                            }
+                        }
                     });
                 }   
             } else {
