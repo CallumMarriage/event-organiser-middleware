@@ -111,7 +111,7 @@ export function getEventsByPopularity(req, res){
 
     var number = req.param.popularity;
 
-    if(numer == null){
+    if(number == null){
         res.status(400).json({error: 'paramater is missing'});
     }
     getUniqueEvents(req.id, number, (response) => {
