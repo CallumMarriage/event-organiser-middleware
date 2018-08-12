@@ -109,7 +109,7 @@ export function getEventsByPopularity(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var number = req.param.popularity;
+    var number = req.query.popularity;
 
     if(number == null){
         res.status(400).json({error: 'paramater is missing'});
