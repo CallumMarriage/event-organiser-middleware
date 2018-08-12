@@ -115,8 +115,8 @@ export function getEventsByPopularity(req, res){
             if(response.rows.length > 0){
              var array = [];
              var i;  
-             for(i = 0; i < events.rows.length; i++){  
-               getEventsById(req.id, events.rows[i].event_id, (event) => {
+             for(i = 0; i < response.rows.length; i++){  
+               getEventsById(req.id, response.rows[i].event_id, (event) => {
                    if(event !== null){
                        if(event.rows.length > 0){
                            array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
