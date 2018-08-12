@@ -2,9 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { indexRoute } from './routes'
 import setup from './models/setup';
+import {setUpEvents} from './models/events';
+
 import { globalMessage } from './middleware/global';
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
-import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute, setUpEvents} from './routes/events';
+import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
 import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity} from './routes/usersToEvents';
 
 import config  from './config';
