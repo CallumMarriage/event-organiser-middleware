@@ -13,7 +13,7 @@ import { globalMessage } from './middleware/global';
 import { indexRoute } from './routes'
 import { getUserRoute, getUsersRoute, postNewUserRoute, validatePasswordRoute } from './routes/users';
 import { getEventsRoute, postNewEvent, getEventsByTypeRoute, getEventByEventNameRoute, getEventsByOwnerRoute, updateEventRoute, deleteEventRoute, getEventsByDateRoute} from './routes/events';
-import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity, getSubscribersByEvent} from './routes/usersToEvents';
+import { getEventsToUsersRoute, postNewRelationshipRoute, getEventsBySubscriberRoute, getEventsByPopularity, getSubscribersByEventRoute} from './routes/usersToEvents';
 
 //config
 import config  from './config';
@@ -72,7 +72,7 @@ app.get('/subscriptions', getEventsToUsersRoute);
 //get events user is subscribed to
 app.get('/events/subscriptions', getEventsBySubscriberRoute);
 //get subscripstions for an event
-app.get('/events/:eventName/subscriptions', getSubscribersByEvent);
+app.get('/events/:eventName/subscriptions', getSubscribersByEventRoute);
 
 app.all('*', error);
 

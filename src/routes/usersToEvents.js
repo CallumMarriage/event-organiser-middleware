@@ -3,7 +3,7 @@ import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, 
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
-export function getSubscribersByEvent(req, res) {
+export function getSubscribersByEventRoute(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
