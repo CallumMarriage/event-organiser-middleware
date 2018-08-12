@@ -20,6 +20,7 @@ export function getSubscribersByEventRoute(req, res) {
                     for(i = 0; i < subscribers.rows.length; i++){
                         console.log(subscribers.rows);
                         getUserByUserId(req.id, subscribers.rows[i].user_id, (subscriber) => {
+                            console.log(subscriber.rows);
                             if(subscriber !== null){
                                 if(subscriber.rows.length > 0){
                                     array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});
