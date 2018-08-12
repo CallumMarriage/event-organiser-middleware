@@ -23,7 +23,7 @@ export function getSubscribersByEventRoute(req, res) {
                             console.log(subscriber.rows);
                             if(subscriber !== null){
                                 if(subscriber.rows.length > 0){
-                                    array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});
+                                    array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].full_name});
                                     console.log(array);
                                 }
                             }
