@@ -12,7 +12,7 @@ export function getSubscribersByEvent(req, res) {
     console.log(eventName);
     getEventsByName(req.id, eventName, (event) => {
         if(event !== null){
-            if(event.row.length == 1){
+            if(event.rows.length == 1){
                 console.log(event.row[0]);
                 getSubscribersByEvent(req.id, event.row[0].event_id, (subscribers) => {
                     var array = [];
