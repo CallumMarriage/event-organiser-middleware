@@ -119,34 +119,25 @@ export function getEventsByPopularity(req, res){
             if(response.rows.length > 0){
                 var array = [];
                 var i;  
-                console.log(">> 1");
                 for(i = 0; i < response.rows.length; i++){  
-                    console.log(i);
                     getNumberOfSubscribers(req.id, response.rows[i].event_id, (subscribers) => {
-                        console.log(">> 2");
-                        console.log(i);
+                
                         console.log(">> Number of subsribers : " + subscribers.rows[0].count);
                         if(subscribers.rows[0].count === number){
-                            console.log(i)
                             getEventsById(req.id, response.rows[i-1].event_id, (event) => {
-                                console.log(">> 3");
 
                                 if(event !== null){
                                     if(event.rows.length > 0){
                                         array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
-                                        console.log(array);
-                                        console.log(">>" + i);
                                     }
                                 }
                                 if(i === (response.rows.length)){    
-                                    console.log(array);
                                     res.status(200).json(array);
                                 }
                 
                             });
                         } else {
                             if(i === (response.rows.length)){    
-                                console.log(array);
                                 res.status(200).json(array);
                             }
                         }
