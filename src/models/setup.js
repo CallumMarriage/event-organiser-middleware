@@ -11,12 +11,16 @@ export default function setup(next) {
       createUsersTable(() => {
         console.log(">> Inserting Root");
         insertUser('Admin', 'Admin@gmail.com', 'Admin', 'admin', 'Organiser', () => {
-          createEventsTable(() => {
-            insertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
-              createUsersToEventsTable(() => {
-                insertUserToEvent('', 1, 1, () => {
-                  next();
-                })
+          insertUser('Student', 'student@gmail.com', 'Student', 'student', () => {
+            createEventsTable(() => {
+              insertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
+                insertEvent( 'Event2', 'Culture', 'Another event', '2018/09/03', 'Admin', () =>{
+                  createUsersToEventsTable(() => {
+                    insertUserToEvent('', 2, 1, () => {
+                      next();
+                    })
+                  });
+                });
               });
             });
           });
