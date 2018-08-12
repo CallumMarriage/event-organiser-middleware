@@ -19,6 +19,17 @@ export function getUserByUsername(requestId, username, callback) {
   });
 }
 
+export function setUpUsers(next){
+  createUsersTable(() => {
+    console.log(">> Inserting users");
+    insertUser('Admin', 'Admin@gmail.com', 'Admin', 'admin', 'Organiser', () => {
+      insertUser('Student', 'student@gmail.com', 'Student', 'student', 'Student', () => {
+        next();
+      });
+    });
+  });
+}
+
 export function insertUser(username, email, fullName, password, type, callback) {
   const bcrypt = require('bcrypt');
   const pool = require('../utils/postgres.js');

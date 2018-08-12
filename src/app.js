@@ -2,8 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 //models setup (create tables and insert data)
+//drop tables
 import setup from './models/setup';
-import {setUpEvents} from './models/events';
+//set up users
+import { setUpUsers } from './models/users';
+//set up events
+import { setUpEvents } from './models/events';
+//set up relationship between users and events
 import { setupUsersToEvents } from './models/usersToEvents';
 
 //middleware
@@ -76,10 +81,14 @@ app.get('/events/subscriptions', getEventsBySubscriberRoute);
 app.all('*', error);
 
 setup(() => {
-  setUpEvents(() => {
-    setupUsersToEvents(() => {
-      app.listen(port, () => {
-        console.log('express: server has been started on port ' + port + '.');
+  setUpUsers(() => {
+    setUpEvents(() => {
+      setupUsersToEvents(() => {
+        setUpUsers(() => {
+          app.listen(port, () => {
+            console.log('express: server has been started on port ' + port + '.');
+          });
+        });
       });
     });
   });

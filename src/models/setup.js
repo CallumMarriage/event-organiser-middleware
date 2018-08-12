@@ -6,14 +6,7 @@ export default function setup(next) {
   console.log(">> Set up started");
   if (config.app.env === 'local' || config.app.env === 'development') {
     dropTables(() => {
-      createUsersTable(() => {
-        console.log(">> Inserting Root");
-        insertUser('Admin', 'Admin@gmail.com', 'Admin', 'admin', 'Organiser', () => {
-          insertUser('Student', 'student@gmail.com', 'Student', 'student', 'Student', () => {
-            next();
-          });
-        });
-      });
+      next();
     });
   } else {
     next();
