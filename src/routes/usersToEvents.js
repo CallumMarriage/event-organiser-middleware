@@ -16,20 +16,20 @@ export function getSubscribersByEventRoute(req, res) {
                 console.log(event.rows[0]);
                 getSubscribersByEvent(req.id, event.rows[0].event_id, (subscribers) => {
                     var array = [];
-                        var i;
-                        for(i = 0; i < subscribers.rows.length; i++){
-                            getUserById(req.id, subscribers.rows[i].user_id, (subscriber) => {
-                                if(subscriber !== null){
-                                    if(subscriber.rows.length > 0){
-                                        array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});
-                                        console.log(array);
-                                    }
+                    var i;
+                    for(i = 0; i < subscribers.rows.length; i++){
+                        getUserById(req.id, subscribers.rows[i].user_id, (subscriber) => {
+                            if(subscriber !== null){
+                                if(subscriber.rows.length > 0){
+                                    array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].name});
+                                    console.log(array);
                                 }
-                                if(i === (subscribers.rows.length)){
-                                    res.status(200).json(array);
-                                }
-                            });
-                        }
+                            }
+                            if(i === (subscribers.rows.length)){
+                                res.status(200).json(array);
+                            }
+                        });
+                    }
                 });
             } else {
                 res.status(404).json({error: 'could not find event with that name'});

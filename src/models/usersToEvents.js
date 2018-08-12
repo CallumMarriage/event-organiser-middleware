@@ -19,7 +19,7 @@ export function getEventsByUser(requestId, user_id, callback) {
 
   export function getSubscribersByEvent(requestId, event_id, callback){
     const pool = require('../utils/postgres.js');
-    console.log('>> ' + requestId + 'Adding relationship between ' + user_id + ' and ' + event_id +'.');
+    console.log('>> ' + requestId + 'Getting subcribers with id '+event_id +'.');
     const query = escape('SELECT * FROM users_to_events WHERE event_id=$1');
     pool.query(query, [event_id], (err, res) => {
       if(err) {
