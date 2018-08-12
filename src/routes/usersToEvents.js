@@ -119,12 +119,15 @@ export function getEventsByPopularity(req, res){
             if(response.rows.length > 0){
                 var array = [];
                 var i;  
-                console.log(response);
+                console.log(">> 1");
                 for(i = 0; i < response.rows.length; i++){  
                     getNumberOfSubscribers(req.id, response.rows[i].event_id, (subscribers) => {
-                        console.log(subscribers);
+                        console.log(">> 2");
+
                         if(subscribers === number){
                             getEventsById(req.id, response.rows[i].event_id, (event) => {
+                                console.log(">> 3");
+
                                 if(event !== null){
                                     if(event.rows.length > 0){
                                         array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
