@@ -122,6 +122,7 @@ export function getEventsByPopularity(req, res){
                 console.log(response);
                 for(i = 0; i < response.rows.length; i++){  
                     getNumberOfSubscribers(req.id, response.rows[i].event_id, (subscribers) => {
+                        console.log(subscribers);
                         if(subscribers === number){
                             getEventsById(req.id, response.rows[i].event_id, (event) => {
                                 if(event !== null){
