@@ -81,10 +81,12 @@ export function postNewRelationshipRoute(req, res){
     if(user !== null){
         if(user.rows.length === 1){
             var user_id = user.rows[0].user_id;
+            console.log(user)
             getEventsByName(req.id, eventName, (event) =>{
                 if(event.rows.length === 1){
                     var event_id = event.rows[0].event_id;
-                    insertUserToEvent(req.id, event_id, user_id, (response) => {
+
+                    insertUserToEvent(req.id, user_id, event_id, (response) => {
                         if(response === true){
                             res.status(201).json({message: 'User has subscribed to event'});  
                          } else {

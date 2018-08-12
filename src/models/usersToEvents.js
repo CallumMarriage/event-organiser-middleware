@@ -19,7 +19,7 @@ export function getEventsByUser(requestId, user_id, callback) {
   
   export function insertUserToEvent(requestId, user_id, event_id, callback) {
     const pool = require('../utils/postgres.js');
-    console.log('>> Adding relationship between' + user_id + ' and ' + event_id +'.');
+    console.log('>> ' + requestId + 'Adding relationship between' + user_id + ' and ' + event_id +'.');
     const query = escape('INSERT INTO users_to_events (user_id, event_id) VALUES ($1, $2)');
   
     pool.query(query, [user_id, event_id], (err, res) => {
