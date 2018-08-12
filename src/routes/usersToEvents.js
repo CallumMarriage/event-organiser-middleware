@@ -7,7 +7,7 @@ export function getSubscribersByEvent(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var eventName = req.query.event;
+    var eventName = req.param.name;
 
     console.log(eventName);
     getEventsById(req.id, eventName, (event) => {
