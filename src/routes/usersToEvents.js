@@ -52,11 +52,8 @@ export function getEventsBySubscriberRoute(req, res){
     getUserByUsername(req.id, username, (user) => {
         if(user.rows.length ===1){
             var user_id = user.rows[0].user_id;
-            getEventsByUser(req.id, user_id, (events) => {
-                if(events !== null){
-                    if(events.rows.length > 0){   
-                        console.log(events.rows);
-                            getEventsFromSet(req.id, events.rows, (response)=> {
+        
+                            getEventsFromSet(req.id, user_id, (response)=> {
                                 if(response !== null ){
                                     res.status(200).json(response)
                                     
@@ -64,13 +61,6 @@ export function getEventsBySubscriberRoute(req, res){
                                     res.status(500).json({error: 'Internal Server Error'})
                                 }
                             })
-                        } else {
-                            res.status(200).json({message: 'You have no events'});
-                        }
-                    } else {
-                        res.status(200).json({message: 'You have no events'});
-                    }
-            });
         } else {
             res.status(404).json({error: 'User not found'})
         }
