@@ -1,5 +1,5 @@
 import { getUserByUsername, getUsersFromSet} from '../models/users.js';
-import { getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getEventsByUserAndEvent } from '../models/usersToEvents.js';
+import { getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById, getEventsFromSet} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
