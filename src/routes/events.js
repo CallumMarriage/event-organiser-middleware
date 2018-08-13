@@ -65,7 +65,7 @@ export function postNewEvent(req, res){
 
     getEventsByType(req.id, type, (events) => {
       if (events !== null) {
-        if(events.row.length > 0){
+        if(events.rows.length > 0){
           res.status(200).json(events.rows);
         } else {
           res.status(200).json([]);
