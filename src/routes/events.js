@@ -43,7 +43,9 @@ export function postNewEvent(req, res){
                 } else {
                   res.status(500).json({error: 'Event already exists'});
                 }
-              }
+              }else {
+                res.status(500).json({error: "Internal Server Error"});
+            }
           });
         } else {
           res.status(400).json({error: 'You do not have the right permissions to access this.'});
@@ -132,9 +134,13 @@ export function postNewEvent(req, res){
           } else {
             res.status(404).json({ error: 'Could not find event with name \'' + name + '\''});
         } 
-        }
+        }else {
+          res.status(500).json({error: "Internal Server Error"});
+      }
       });
-    }
+    } else {
+      res.status(500).json({error: "Internal Server Error"});
+  }
   }
 
   export function getEventsByOwnerRoute(req, res){
@@ -152,7 +158,9 @@ export function postNewEvent(req, res){
           } else {
             res.status(404).json({ error: 'Could not find your events'});
           } 
-        }
+        }else {
+          res.status(500).json({error: "Internal Server Error"});
+      }
       });
     } else {
       res.status(400).json({error: 'Missing query Parameter username'})
@@ -214,7 +222,9 @@ export function postNewEvent(req, res){
                   } else {
                     res.status(404).json({error: 'Could not find event to delete'})
                   }
-              }
+              }else {
+                res.status(500).json({error: "Internal Server Error"});
+            }
             });
           }else {
             res.status(400).json({error: 'You do not have permission to delete this'});

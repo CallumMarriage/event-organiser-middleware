@@ -36,6 +36,8 @@ export function getSubscribersByEventRoute(req, res) {
             } else {
                 res.status(404).json({error: 'could not find event with that name'});
             }
+        } else {
+            res.status(500).json({error: "Internal Server Error"});
         }
     });
 }
@@ -123,6 +125,7 @@ export function postNewRelationshipRoute(req, res){
                 if(event.rows.length === 1){
                     var event_id = event.rows[0].event_id;
                     getEventsByUserAndEvent(req.id, user_id, event_id, (events) => {
+                        console.log(">>******** " + events.rows);
                         if(events !== false && events.rows.length === 0){
                             insertUserToEvent(req.id, user_id, event_id, (response) => {
                                 if(response === true){
