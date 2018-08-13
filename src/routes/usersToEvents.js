@@ -56,7 +56,6 @@ export function getEventsBySubscriberRoute(req, res){
                 if(events !== null){
                     if(events.rows.length > 0){     
                             getEventsFromSet(req.id, events.rows.event_id, (response)=> {
-                                console.log(">>>>> " + response);
                                 if(response !== null ){
                                     res.status(200).json(response)
                                     
