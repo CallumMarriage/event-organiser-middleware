@@ -50,6 +50,7 @@ export function getEventsByUser(requestId, user_id, callback) {
     const query = escape('SELECT * FROM users_to_events WHERE FIND_IN_SET(event_id, $1)');
   
     pool.query(query, [events], (err, res) => {
+      console.log(err);
       if(err) {
          callback(false);
         } else {
