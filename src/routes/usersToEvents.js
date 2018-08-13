@@ -1,5 +1,5 @@
 import { getUserByUsername, getUserByUserId} from '../models/users.js';
-import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent } from '../models/usersToEvents.js';
+import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
@@ -121,13 +121,11 @@ export function postNewRelationshipRoute(req, res){
         if(user.rows.length === 1){
             var user_id = user.rows[0].user_id;
             console.log("user: " + user);   
-            
-            getEventsByUser(req.id, user_id, (events) => {
-                if(events.rows.length === 0){
-                    getEventsByName(req.id, eventName, (event) =>{
-                        if(event.rows.length === 1){
-                            var event_id = event.rows[0].event_id;
-
+            getEventsByName(req.id, eventName, (event) =>{
+                if(event.rows.length === 1){
+                    var event_id = event.rows[0].event_id;
+                    getEventsByUserAndEvent(req.id, user_id, event_id, (events) => {
+                        if(events !== false || events.rows.length === 0){
                             insertUserToEvent(req.id, user_id, event_id, (response) => {
                                 if(response === true){
                                     res.status(201).json({message: 'User has subscribed to event'});  
@@ -137,8 +135,6 @@ export function postNewRelationshipRoute(req, res){
                             });
                         } 
                     });
-                } else {
-                    res.status(400).json({error: 'User is already subscribed'})
                 }
             });
         } else {

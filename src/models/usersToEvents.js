@@ -30,6 +30,20 @@ export function getEventsByUser(requestId, user_id, callback) {
     });
   }
   
+  export function getEventsByUserAndEvent(requestId, user_id, event_id, callback){
+    const pool = require('../utils/postgres.js');
+    console.log('>> ' + requestId + 'Getting events with' + user_id + ' and ' + event_id +'.');
+    const query = escape('SELECT * WHERE user_id=$1 AND event_id=$2');
+  
+    pool.query(query, [user_id, event_id], (err, res) => {
+      if(err) {
+         callback(false);
+        } else {
+         callback(res);
+        }
+    });
+  }
+
   export function insertUserToEvent(requestId, user_id, event_id, callback) {
     const pool = require('../utils/postgres.js');
     console.log('>> ' + requestId + 'Adding relationship between ' + user_id + ' and ' + event_id +'.');
