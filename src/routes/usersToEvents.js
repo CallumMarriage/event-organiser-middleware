@@ -54,8 +54,8 @@ export function getEventsBySubscriberRoute(req, res){
             var user_id = user.rows[0].user_id;
         
                             getEventsFromSet(req.id, user_id, (response)=> {
-                                console.log(">> " + response.rows);
-                                if(response !== null ){
+                                console.log(">> " + response);
+                                if(response !== null && response !== false){
                                     if(response.rows.length > 0){
                                     res.status(200).json(response)
                                     } else {
