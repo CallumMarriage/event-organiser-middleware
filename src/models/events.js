@@ -32,6 +32,23 @@ export function createEventsTable(next) {
     });
   }
 
+
+  export function getEventsFromSet(requestId, events, callback){
+    const pool = require('../utils/postgres.js');
+    console.log('>> ' + requestId );
+    const query = escape('SELECT * FROM events WHERE event_id = ANY ($1)');
+  
+    pool.query(query, [events], (err, res) => {
+      console.log(err);
+      if(err) {
+         callback(false);
+        } else {
+          console.log(res);
+         callback(res);
+        }
+    });
+  }
+
   export function getEventsByType(requestId, type, callback){
     const pool = require('../utils/postgres.js');
     console.log(">> " + requestId);

@@ -1,6 +1,6 @@
 import { getUserByUsername, getUserByUserId} from '../models/users.js';
-import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent, getEventsFromSet } from '../models/usersToEvents.js';
-import { getEventsByName, getEventsById} from '../models/events.js';
+import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
+import { getEventsByName, getEventsById, getEventsFromSet} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
 export function getSubscribersByEventRoute(req, res) {

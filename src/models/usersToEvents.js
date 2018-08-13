@@ -47,7 +47,7 @@ export function getEventsByUser(requestId, user_id, callback) {
   export function getEventsFromSet(requestId, events, callback){
     const pool = require('../utils/postgres.js');
     console.log('>> ' + requestId );
-    const query = escape('SELECT * FROM users_to_events WHERE FIND_IN_SET(event_id, $1)');
+    const query = escape('SELECT * FROM users_to_events WHERE event_id = ANY ($1)');
   
     pool.query(query, [events], (err, res) => {
       console.log(err);
