@@ -39,6 +39,7 @@ export function getEventsByUser(requestId, user_id, callback) {
       if(err) {
          callback(false);
         } else {
+          console.log(res);
          callback(res);
         }
     });
