@@ -3,7 +3,7 @@ import escape from 'pg-escape';
 export function getEventsByUser(requestId, user_id, callback) {
     const pool = require('../utils/postgres.js');
     
-    const query = escape('SELECT * FROM users_to_events WHERE user_id=$1');
+    const query = escape('SELECT event_id FROM users_to_events WHERE user_id=$1');
     pool.query(query, [user_id], (err, res) => {
       if(err) {
         callback(null);
@@ -44,21 +44,6 @@ export function getEventsByUser(requestId, user_id, callback) {
     });
   }
 
-  export function getEventsFromSet(requestId, events, callback){
-    const pool = require('../utils/postgres.js');
-    console.log('>> ' + requestId );
-    const query = escape('SELECT * FROM users_to_events WHERE event_id = ANY ($1)');
-  
-    pool.query(query, [events], (err, res) => {
-      console.log(err);
-      if(err) {
-         callback(false);
-        } else {
-          console.log(res);
-         callback(res);
-        }
-    });
-  }
 
   export function insertUserToEvent(requestId, user_id, event_id, callback) {
     const pool = require('../utils/postgres.js');
