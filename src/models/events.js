@@ -43,7 +43,6 @@ export function createEventsTable(next) {
       if(err) {
          callback(false);
         } else {
-          console.log(res);
          callback(res);
         }
     });

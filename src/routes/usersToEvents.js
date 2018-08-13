@@ -49,15 +49,14 @@ export function getEventsBySubscriberRoute(req, res){
 
     var username = req.query.subscription;
     
-    console.log(username);
     getUserByUsername(req.id, username, (user) => {
-        console.log(">> "+user)
         if(user.rows.length ===1){
             var user_id = user.rows[0].user_id;
             getEventsByUser(req.id, user_id, (events) => {
                 if(events !== null){
                     if(events.rows.length > 0){     
                             getEventsFromSet(req.id, events.rows.event_id, (response)=> {
+                                console.log(">>>>> " + response);
                                 if(response !== false){
                                     if(response.rows.length > 0){
                                         res.status(200).json(response)
@@ -66,6 +65,8 @@ export function getEventsBySubscriberRoute(req, res){
                                     res.status(500).json({error: 'Internal Server Error'})
                                 }
                             })
+                        } else {
+                            res.status(200).json({message: 'You have no events'});
                         }
                     } else {
                         res.status(200).json({message: 'You have no events'});
