@@ -56,11 +56,10 @@ export function getEventsBySubscriberRoute(req, res){
                 if(events !== null){
                     if(events.rows.length > 0){     
                             getEventsFromSet(req.id, events.rows.event_id, (response)=> {
-                                console.log(">>>>> " + response.rows);
-                                if(response !== false){
-                                    if(response.rows.length > 0){
-                                        res.status(200).json(response)
-                                    }
+                                console.log(">>>>> " + response);
+                                if(response !== null ){
+                                    res.status(200).json(response)
+                                    
                                 } else {
                                     res.status(500).json({error: 'Internal Server Error'})
                                 }
