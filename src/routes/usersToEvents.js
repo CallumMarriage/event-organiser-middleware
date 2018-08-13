@@ -70,9 +70,6 @@ export function getEventsBySubscriberRoute(req, res){
                                     res.status(200).json(array);
                                 }
                             });
-                            if(i === (events.rows.length)){
-                                res.status(200).json(array);
-                            }
                         }
                     } else {
                         res.status(200).json({message: 'You have no events'});
