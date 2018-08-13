@@ -22,7 +22,11 @@ export function createEventsTable(next) {
     createEventsTable(() => {
       insertEvent( 'Event1', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
         insertEvent( 'Event2', 'Culture', 'Another event', '2018/09/03', 'Admin', () =>{
-          next();
+          insertEvent( 'Event3', 'Sport', 'My event', '2018/09/02', 'Admin', () =>{
+            insertEvent( 'Event4', 'Comedy', 'Another event', '2018/09/03', 'Admin', () =>{
+               next();
+          });
+         });
         });
       });
     });

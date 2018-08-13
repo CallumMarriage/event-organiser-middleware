@@ -24,7 +24,9 @@ export function setUpUsers(next){
     console.log(">> Inserting users");
     insertUser('Admin', 'Admin@gmail.com', 'Admin', 'admin', 'Organiser', () => {
       insertUser('Student', 'student@gmail.com', 'Student', 'student', 'Student', () => {
-        next();
+        insertUser('Student2', 'student2@gmail.com', 'Student2', 'student', 'Student', () => {
+          next();
+        });
       });
     });
   });

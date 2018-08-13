@@ -65,7 +65,11 @@ export function postNewEvent(req, res){
 
     getEventsByType(req.id, type, (events) => {
       if (events !== null) {
-        res.status(200).json(events.rows);
+        if(events.row.length > 0){
+          res.status(200).json(events.rows);
+        } else {
+          res.status(200).json([]);
+        }
       } else {
         res.status(404).json({ error: 'No events in the database by that type'});
       }
