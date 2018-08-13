@@ -1,5 +1,5 @@
 import { getUserByUsername, getUserByUserId} from '../models/users.js';
-import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
+import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent, getEventsFromSet } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
@@ -59,29 +59,27 @@ export function getEventsBySubscriberRoute(req, res){
                     console.log(">>> number of events: " + events.rows.length);
                     if(events.rows.length > 0){
                         var array = [];
-                        var i;
-                        for(i = 0; i < events.rows.length; i++){
-                            getEventsById(req.id, events.rows[i].event_id, loopThroughUsers((event, array)));
+                        var i;            
+                        res.status(200).json(events.rows);
+                            getEventsFromSet(req.id, events, (response)=> {
+                                if(response !== null){
+                                    if(response.rows.length > 0){
+                                        res.status(200).json(response)
+                                    }
+                                } else {
+                                    res.status(500).json({error: 'Internal Server Error'})
+                                }
+                            })
                         }
                     } else {
                         res.status(200).json({message: 'You have no events'});
                     }
-                }
             });
         } else {
             res.status(404).json({error: 'User not found'})
         }
       });
 
-}
-
-function loopThroughUsers(event, array){
-        if(event !== null){
-            if(event.rows.length > 0){
-                array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
-            }
-        }
-        return array
 }
 
 export function getEventsToUsersRoute(req, res) {
