@@ -124,7 +124,6 @@ export function postNewRelationshipRoute(req, res){
                                     res.status(404).json({error: 'Invalid subscription attempt'});
                                 }
                             });
-                            res.status(400).json({error: "You have already subscribed to this event"});
                         }
                     });
                 } else {
