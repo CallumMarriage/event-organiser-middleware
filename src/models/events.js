@@ -39,7 +39,6 @@ export function createEventsTable(next) {
     const query = escape('SELECT * FROM events WHERE event_id = ANY ($1)');
   
     pool.query(query, [events], (err, res) => {
-      console.log(err);
       if(err) {
          callback(false);
         } else {
