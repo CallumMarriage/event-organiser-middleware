@@ -119,35 +119,3 @@ export function getEventsByUser(requestId, user_id, callback) {
       }
     });
   }
-
-  export function getNumberOfSubscribers(requestId, event_id, callback){
-    const pool = require('../utils/postgres.js');
-
-    console.log(">> " + requestId + " Getting subscribers for " + event_id);
-    const query = escape('SELECT COUNT(*) FROM users_to_events WHERE event_id=$1');
-    
-    pool.query(query, [event_id], (err, res) => {
-      if(err) {
-        callback(null);
-      }else {
-        console.log(res);
-        callback(res);
-      }
-    });
-  }
-
-  export function getUniqueEvents(requestId, callback){
-    const pool = require('../utils/postgres.js');
-
-    console.log(">> " + requestId + " Getting events");
-    const query = escape('SELECT DISTINCT event_id FROM users_to_events');
-
-    pool.query(query, [], (err, res) => {
-      if(err) {
-        callback(null);
-      }else {
-        console.log(res);
-        callback(res);
-      }
-    });
-  }

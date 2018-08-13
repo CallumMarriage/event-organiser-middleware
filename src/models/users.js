@@ -1,10 +1,10 @@
 import escape from 'pg-escape';
 
-//uses escape to prevent sql injection.
-
+//gets user by username
 export function getUserByUsername(requestId, username, callback) {
   const pool = require('../utils/postgres.js');
-  
+
+  //uses escape to prevent sql injection.
   const query = escape('SELECT * FROM users WHERE username=$1');
   pool.query(query, [username], (err, res) => {
     if(err) {
@@ -19,6 +19,7 @@ export function getUserByUsername(requestId, username, callback) {
   });
 }
 
+//Sets up the default users
 export function setUpUsers(next){
   createUsersTable(() => {
     console.log(">> Inserting users");
@@ -32,9 +33,9 @@ export function setUpUsers(next){
   });
 }
 
+//gets all of the users that are subscribed to a specific event
 export function getUsersFromSet(requestId, event_id, callback){
   const pool = require('../utils/postgres.js');
-
   console.log(">> " + requestId + ", " + event_id);
   const query = escape('SELECT * FROM users WHERE user_id = ALL(SELECT user_id FROM users_to_events WHERE event_id=$1) ');
   pool.query(query, [event_id], (err, res) => {
@@ -46,6 +47,7 @@ export function getUsersFromSet(requestId, event_id, callback){
   });
 }
 
+//inserts a user
 export function insertUser(username, email, fullName, password, type, callback) {
   const bcrypt = require('bcrypt');
   const pool = require('../utils/postgres.js');

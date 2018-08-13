@@ -1,4 +1,4 @@
-import { getUserByUsername, getUsers, insertUser, getPassword} from '../models/users.js';
+import { getUserByUsername, getUsers, insertUser} from '../models/users.js';
 const { sanitizeBody } = require('express-validator/filter');
 const bcrypt = require('bcrypt');
 
