@@ -107,7 +107,7 @@ export function getEventsByUser(requestId, user_id, callback) {
     console.log(">> " + requestId);
     console.log(">> Getting events with " + number + "subscribers." );
 
-    const query = escape('SELECT * FROM events WHERE event_id IN (SELECT event_id FROM users_to_events GROUP BY event_id HAVING COUNT(*) === $1');
+    const query = escape('SELECT * FROM events WHERE event_id IN (SELECT event_id FROM users_to_events GROUP BY event_id HAVING COUNT(*) > $1');
     
     pool.query(query, [number], (err, res) => {
       if(err) {
