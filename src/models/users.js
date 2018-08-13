@@ -32,6 +32,20 @@ export function setUpUsers(next){
   });
 }
 
+export function getUsersFromSet(requestId, event_id, callback){
+  const pool = require('../utils/postgres.js');
+
+  console.log(">> " + requestId + ", " + event_id);
+  const query = escape('SELECT * FROM users WHERE user_id = ALL(SELECT user_id WHERE event_id=$1) ');
+  pool.query(query, [event_id], (err, res) => {
+    if(err) {
+      callback(null);
+    } else {
+      callback(res);
+    }
+  });
+}
+
 export function insertUser(username, email, fullName, password, type, callback) {
   const bcrypt = require('bcrypt');
   const pool = require('../utils/postgres.js');

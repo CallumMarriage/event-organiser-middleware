@@ -1,5 +1,5 @@
-import { getUserByUsername, getUserByUserId} from '../models/users.js';
-import { getEventsByUser, getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
+import { getUserByUsername, getUsersFromSet} from '../models/users.js';
+import { getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getEventsByUserAndEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById, getEventsFromSet} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
@@ -9,33 +9,20 @@ export function getSubscribersByEventRoute(req, res) {
 
     var eventName = req.params.eventName;
 
-    console.log(eventName);
     getEventsByName(req.id, eventName, (event) => {
         if(event !== null){
-            if(event.rows.length == 1){
-                console.log(event.rows[0]);
-                getSubscribersByEvent(req.id, event.rows[0].event_id, (subscribers) => {
-                    var array = [];
-                    var i;
-                    for(i = 0; i < subscribers.rows.length; i++){
-                        console.log(subscribers.rows);
-                        getUserByUserId(req.id, subscribers.rows[i].user_id, (subscriber) => {
-                            console.log(subscriber.rows);
-                            if(subscriber !== null){
-                                if(subscriber.rows.length > 0){
-                                    array.push({user_id: subscriber.rows[0].user_id, name: subscriber.rows[0].full_name});
-                                    console.log(array);
-                                }
-                            }
-                            if(i === (subscribers.rows.length)){
-                                res.status(200).json(array);
-                            }
-                        });
-                    }
-                });
-            } else {
-                res.status(404).json({error: 'could not find event with that name'});
-            }
+            var event_id = event.rows[0].event_id;
+            getUsersFromSet(req.id, event_id, (response) => {
+                if(response !== null && response !== false){
+                    if(response.rows.length > 0){
+                        res.status(200).json(response.rows) 
+                    } else {
+                        res.status(404).json({error: 'Event does not have any subscribers'})
+                    }                   
+                } else {
+                    res.status(500).json({error: 'Internal Server Error'})
+                }
+            });
         } else {
             res.status(500).json({error: "Internal Server Error"});
         }
@@ -51,22 +38,18 @@ export function getEventsBySubscriberRoute(req, res){
     
     getUserByUsername(req.id, username, (user) => {
         if(user.rows.length ===1){
-            var user_id = user.rows[0].user_id;
-        
-                            getEventsFromSet(req.id, user_id, (response)=> {
-                                console.log(">> " + response);
-                                if(response !== null && response !== false){
-                                    if(response.rows.length > 0){
-                                        res.status(200).json(response.rows)
-                                    } else {
-                                        res.status(404).json({error: 'You do not have any events'})
-
-                                    }
-                                    
-                                } else {
-                                    res.status(500).json({error: 'Internal Server Error'})
-                                }
-                            })
+            var user_id = user.rows[0].user_id;        
+            getEventsFromSet(req.id, user_id, (response)=> {
+                if(response !== null && response !== false){
+                    if(response.rows.length > 0){
+                        res.status(200).json(response.rows) 
+                    } else {
+                        res.status(404).json({error: 'You do not have any events'})
+                    }                   
+                } else {
+                    res.status(500).json({error: 'Internal Server Error'})
+                }
+            })
         } else {
             res.status(404).json({error: 'User not found'})
         }
@@ -108,12 +91,10 @@ export function postNewRelationshipRoute(req, res){
     if(user !== null){
         if(user.rows.length === 1){
             var user_id = user.rows[0].user_id;
-            console.log("user: " + user.rows[0]);   
             getEventsByName(req.id, eventName, (event) =>{
                 if(event.rows.length === 1){
                     var event_id = event.rows[0].event_id;
                     getEventsByUserAndEvent(req.id, user_id, event_id, (events) => {
-                        console.log(">>******** " + events.rows);
                         if(events.rows.length > 0){
                             res.status(400).json({error: "You have already subscribed to this event"});
                         } else {
