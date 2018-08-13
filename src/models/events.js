@@ -35,8 +35,7 @@ export function createEventsTable(next) {
 
   export function getEventsFromSet(requestId, user_id, callback){
     const pool = require('../utils/postgres.js');
-    console.log('>> ' + requestId );
-    console.log('>>> ' + events[0]);
+    console.log('>> ' + requestId   + ", " + user_id);
     const query = escape('SELECT * FROM events WHERE event_id = ANY(SELECT event_id FROM users_events WHERE user_id=$1)');
   
     pool.query(query, [user_id], (err, res) => {
