@@ -133,46 +133,15 @@ export function getEventsByPopularity(req, res){
         res.status(400).json({error: 'paramater is missing'});
     }
 
-    getEventsWithNumberOfsubscribers(req.id, number , (events) => {
-
-    });
-
-    getUniqueEvents(req.id, (response) => {
-        if(response !== null){
+    getEventsWithNumberOfsubscribers(req.id, number , (response) => {
+        if(response !== null && response !== false){
             if(response.rows.length > 0){
-
-                getEventsWithNumberOFsubscribers(req.id, );
-                var array = [];
-                var i;  
-                for(i = 0; i < response.rows.length; i++){  
-                    getNumberOfSubscribers(req.id, response.rows[i].event_id, (subscribers) => {
-                
-                        console.log(">> Number of subsribers : " + subscribers.rows[0].count);
-                        if(subscribers.rows[0].count === number){
-                            getEventsById(req.id, response.rows[i-1].event_id, (event) => {
-
-                                if(event !== null){
-                                    if(event.rows.length > 0){
-                                        array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
-                                    }
-                                }
-                                if(i === (response.rows.length)){    
-                                    res.status(200).json(array);
-                                }
-                
-                            });
-                        } else {
-                            if(i === (response.rows.length)){    
-                                res.status(200).json(array);
-                            }
-                        }
-                    });
-                    
-                }   
+                res.status(200).json(response.rows) 
             } else {
-                res.status(404).json({error: 'Couldnt find any events with that many subscribers'});
-
-            }
+                res.status(404).json({error: 'You do not have any events'})
+            }                   
+        } else {
+            res.status(500).json({error: 'Internal Server Error'})
         }
     });
 }
