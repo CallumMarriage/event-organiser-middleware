@@ -61,16 +61,7 @@ export function getEventsBySubscriberRoute(req, res){
                         var array = [];
                         var i;
                         for(i = 0; i < events.rows.length; i++){
-                            getEventsById(req.id, events.rows[i].event_id, (event) => {
-                                if(event !== null){
-                                    if(event.rows.length > 0){
-                                        array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
-                                    }
-                                }
-                                if(i === (events.rows.length)){
-                                    res.status(200).json(array);
-                                }
-                            });
+                            getEventsById(req.id, events.rows[i].event_id, loopThroughUsers((event, array)));
                         }
                     } else {
                         res.status(200).json({message: 'You have no events'});
@@ -82,6 +73,15 @@ export function getEventsBySubscriberRoute(req, res){
         }
       });
 
+}
+
+function loopThroughUsers(event, array){
+        if(event !== null){
+            if(event.rows.length > 0){
+                array.push( {event_id: event.rows[0].event_id,name: event.rows[0].name, description: event.rows[0].description, date: event.rows[0].date});
+            }
+        }
+        return array
 }
 
 export function getEventsToUsersRoute(req, res) {
