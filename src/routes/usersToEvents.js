@@ -1,5 +1,5 @@
 import { getUserByUsername, getUsersFromSet} from '../models/users.js';
-import { getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getSubscribersByEvent, getEventsByUserAndEvent } from '../models/usersToEvents.js';
+import { getUsersToEvents, insertUserToEvent, getUniqueEvents, getNumberOfSubscribers, getEventsWithNumberOfsubscribers, getEventsByUserAndEvent } from '../models/usersToEvents.js';
 import { getEventsByName, getEventsById, getEventsFromSet} from '../models/events.js';
 const { sanitizeBody } = require('express-validator/filter');
 
@@ -132,9 +132,16 @@ export function getEventsByPopularity(req, res){
     if(number == null){
         res.status(400).json({error: 'paramater is missing'});
     }
+
+    getEventsWithNumberOfsubscribers(req.id, number , (events) => {
+
+    });
+
     getUniqueEvents(req.id, (response) => {
         if(response !== null){
             if(response.rows.length > 0){
+
+                getEventsWithNumberOFsubscribers(req.id, );
                 var array = [];
                 var i;  
                 for(i = 0; i < response.rows.length; i++){  

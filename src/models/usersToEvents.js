@@ -100,6 +100,25 @@ export function getEventsByUser(requestId, user_id, callback) {
     });
   }
 
+
+  export function getEventsWithNumberOfsubscribers(requestId, number, callback){
+    const pool = require('../utils/postgres.js');
+  
+    console.log(">> " + requestId);
+    console.log(">> Getting events with " + number + "subscribers." );
+
+    const query = escape('SELECT * FROM events WHERE event_id IN (SELECT event_id FROM users_to_events GROUP BY event_id HAVING COUNT(*) = $1');
+    
+    pool.query(query, [number], (err, res) => {
+      if(err) {
+        callback(null);
+      }else {
+        console.log(res);
+        callback(res);
+      }
+    });
+  }
+
   export function getNumberOfSubscribers(requestId, event_id, callback){
     const pool = require('../utils/postgres.js');
 
